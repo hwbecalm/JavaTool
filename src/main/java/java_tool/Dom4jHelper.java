@@ -1,6 +1,4 @@
-/**
- * 
- */
+/**	XML文档解析的		*/
 package java_tool;
 
 import java.io.ByteArrayOutputStream;
@@ -24,33 +22,21 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
-/**
- * @author advance
- *
- */
 public class Dom4jHelper {
-	/**
-	 *  ����url xml�ĵ�
-	 * @param url
-	 * @return
-	 * @throws DocumentException
-	 */
+	
+	/**  解析 URL XML 文档*/
     public Document parse(URL url) throws DocumentException {
         SAXReader reader = new SAXReader();
         Document document = reader.read(url);
         return document;
     }
-    /**
-     * ��������ĵ�
-     * @param document
-     */
+    
+    /** 遍历解析文档 */
     public void treeWalk(Document document) {
         treeWalk( document.getRootElement() );
     }
-    /**
-     * �������Ԫ��
-     * @param element
-     */
+    
+    /** 遍历解析元素	*/
     public void treeWalk(Element element) {
         for ( int i = 0, size = element.nodeCount(); i < size; i++ ) {
             Node node = element.node(i);
@@ -58,39 +44,27 @@ public class Dom4jHelper {
                 treeWalk( (Element) node );
             }
             else {
-                // ����....
+                // 处理....
             }
         }
     }
 
-	/** 
-	 * �����ļ�����ø�Ԫ��
-	 * @param xmlPath
-	 * @param encoding
-	 * @return
-	 * @throws Exception
-	 */
+	/**  解析文件，获得根元素	*/
 	public static Element parse(String xmlPath,String encoding)throws Exception{
-		//�ļ��Ƿ����
+		//文件是否存在
 		File file = new File(xmlPath);
         if(!file.exists()){
-        	throw new Exception("�Ҳ���xml�ļ���"+xmlPath);
+        	throw new Exception("找不到xml文件："+xmlPath);
         }
         
-		//����
+		//解析
 		SAXReader reader = new SAXReader(false);
 		Document doc = reader.read(new FileInputStream(file),encoding);
 		Element root = doc.getRootElement();
 		return root;
 	}
 	
-	/**
-	 * �����ĵ�
-	 * @param doc
-	 * @param xmlPath
-	 * @param encoding
-	 * @throws Exception
-	 */
+	/** 保存文档	 */
 	public static void save(Document doc,String xmlPath,String encoding)throws Exception{
 		OutputFormat format=OutputFormat.createPrettyPrint();
 	    format.setEncoding(encoding);
@@ -99,13 +73,14 @@ public class Dom4jHelper {
 		writer.flush();
 		writer.close();	
 	}
+	
 	/**
-	 * �޸�xmlĳ�ڵ��ֵ
-	 * @param inputXml ԭxml�ļ�
-	 * @param nodes Ҫ�޸ĵĽڵ�
-	 * @param attributename �������
-	 * @param value ��ֵ
-	 * @param outXml ����ļ�·�����ļ��� �������ļ�Ϊnull����Ĭ��Ϊԭxml�ļ�
+	 * 修改xml某节点的值
+	 * @param inputXml 原xml文件
+	 * @param nodes 要修改的节点
+	 * @param attributename 属性名称
+	 * @param value 新值
+	 * @param outXml 输出文件路径及文件名 如果输出文件为null，则默认为原xml文件
 	 */
 	public static void modifyDocument(File inputXml, String nodes, String attributename, String value, String outXml) {
 		try {
@@ -119,27 +94,24 @@ public class Dom4jHelper {
 					attribute.setValue(value);
 			}
 			XMLWriter output;
-			if (outXml != null){ //ָ������ļ�
+			if (outXml != null){ //指定输出文件
 				output = new XMLWriter(new FileWriter(new File(outXml)));
-			}else{ //����ļ�Ϊԭ�ļ�
+			}else{ //输出文件为原文件
 				output = new XMLWriter(new FileWriter(inputXml));
 			}
 			output.write(document);
 			output.close();
-		}
-
-		catch (DocumentException e) {
+		}catch (DocumentException e) {
 			System.out.println(e.getMessage());
-		} catch (IOException e) {
+		}catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
 	}	
 	
 	/**
-	 * xmlת��Ϊ�ַ�
+	 * xml转换为字符串
 	 * @param doc
 	 * @param encoding
-	 * @return
 	 * @throws Exception
 	 */
 	public static String toString(Document doc,String encoding)throws Exception{
@@ -151,25 +123,18 @@ public class Dom4jHelper {
 		writer.flush();
 		writer.close();		
 		writer=null;
-		
 		return byteOS.toString(encoding);
 	}
+	
 	/**
-	 * �ַ�ת��ΪDocument
+	 * 字符串转换为Document
 	 * @param text
-	 * @return
 	 * @throws DocumentException
 	 */
 	public static Document str2Document(String text) throws DocumentException{
 		Document document = DocumentHelper.parseText(text);
         return document;
 	}
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
-	}
-
+	public static void main(String[] args) {	}
 }

@@ -1,8 +1,8 @@
 package java_tool;
 
 /**
- * �������ռ�Java�����WEB�������õ���һЩ���ߡ�
- * Ϊ������ɴ����ʵ���췽��������Ϊprivate���͵ġ�
+ * 此类中收集Java编程中WEB开发常用到的一些工具。
+ * 为避免生成此类的实例，构造方法被申明为private类型的。
  * @author 
  */
 import java.io.IOException;
@@ -13,34 +13,26 @@ import java.util.Date;
 
 
 public class CTool {
-    /**
-     * ˽�й��췽������ֹ���ʵ����Ϊ�����಻��Ҫʵ��
-     */
+    /**	私有构造方法，防止类的实例化，因为工具类不需要实例化。*/
     private CTool() {
     }
-
     /**
-      <pre>
-     * ��
+     * 例：
      * String strVal="This is a dog";
      * String strResult=CTools.replace(strVal,"dog","cat");
-     * ���
+     * 结果：
      * strResult equals "This is cat"
-     *
-     * @param strSrc Ҫ�����滻�������ַ�
-     * @param strOld Ҫ���ҵ��ַ�
-     * @param strNew Ҫ�滻���ַ�
-     * @return �滻����ַ�
+     * @param strSrc 要进行替换操作的字符串
+     * @param strOld 要查找的字符串
+     * @param strNew 要替换的字符串
+     * @return 替换后的字符串
       <pre>
      */
-    public static final String replace(String strSrc, String strOld,
-                                       String strNew) {
+    public static final String replace(String strSrc, String strOld,String strNew) {
         if (strSrc == null || strOld == null || strNew == null)
             return "";
-
         int i = 0;
-        
-        if (strOld.equals(strNew)) //�����¾��ַ�һ�������ѭ��
+        if (strOld.equals(strNew)) //避免新旧字符一样产生死循环
         	return strSrc;
         
         if ((i = strSrc.indexOf(strOld, i)) >= 0) {
@@ -59,34 +51,28 @@ public class CTool {
                 i += intOldLen;
                 j = i;
             }
-
             buf.append(arr_cSrc, j, arr_cSrc.length - j);
-
             return buf.toString();
         }
-
         return strSrc;
     }
 
     /**
-     * ���ڽ��ַ��е������ַ�ת����Webҳ�п��԰�ȫ��ʾ���ַ�
-     * �ɶԱ?��ݾݽ��д����һЩҳ�������ַ���д�����'<','>','"',''','&'
-     * @param strSrc Ҫ�����滻�������ַ�
-     * @return �滻�����ַ����ַ�
+     * 用于将字符串中的特殊字符转换成Web页中可以安全显示的字符串
+     * 可对表单数据据进行处理对一些页面特殊字符进行处理如'<','>','"',''','&'
+     * @param strSrc 要进行替换操作的字符串
+     * @return 替换特殊字符后的字符串
      * @since  1.0
      */
-
     public static String htmlEncode(String strSrc) {
         if (strSrc == null)
             return "";
-
         char[] arr_cSrc = strSrc.toCharArray();
         StringBuffer buf = new StringBuffer(arr_cSrc.length);
         char ch;
 
         for (int i = 0; i < arr_cSrc.length; i++) {
             ch = arr_cSrc[i];
-
             if (ch == '<')
                 buf.append("&lt;");
             else if (ch == '>')
@@ -100,26 +86,23 @@ public class CTool {
             else
                 buf.append(ch);
         }
-
         return buf.toString();
     }
 
     /**
-     * ���ڽ��ַ��е������ַ�ת����Webҳ�п��԰�ȫ��ʾ���ַ�
-     * �ɶԱ?��ݾݽ��д����һЩҳ�������ַ���д�����'<','>','"',''','&'
-     * @param strSrc Ҫ�����滻�������ַ�
-     * @param quotes Ϊ0ʱ����ź�˫��Ŷ��滻��Ϊ1ʱ���滻����ţ�Ϊ2ʱ���滻˫��ţ�Ϊ3ʱ����ź�˫��Ŷ����滻
-     * @return �滻�����ַ����ַ�
+     * 用于将字符串中的特殊字符转换成Web页中可以安全显示的字符串
+     * 可对表单数据据进行处理对一些页面特殊字符进行处理如'<','>','"',''','&'
+     * @param strSrc 要进行替换操作的字符串
+     * @param quotes 为0时单引号和双引号都替换，为1时不替换单引号，为2时不替换双引号，为3时单引号和双引号都不替换
+     * @return 替换特殊字符后的字符串
      * @since  1.0
      */
     public static String htmlEncode(String strSrc, int quotes) {
-
         if (strSrc == null)
             return "";
         if (quotes == 0) {
             return htmlEncode(strSrc);
         }
-
         char[] arr_cSrc = strSrc.toCharArray();
         StringBuffer buf = new StringBuffer(arr_cSrc.length);
         char ch;
@@ -139,14 +122,13 @@ public class CTool {
             else
                 buf.append(ch);
         }
-
         return buf.toString();
     }
 
     /**
-     * ��htmlEncode����෴
-     * @param strSrc Ҫ����ת�����ַ�
-     * @return ת������ַ�
+     * 和htmlEncode正好相反
+     * @param strSrc 要进行转换的字符串
+     * @return 转换后的字符串
      * @since  1.0
      */
     public static String htmlDecode(String strSrc) {
@@ -161,9 +143,9 @@ public class CTool {
     }
 
     /**
-     * �ڽ���ݴ�����ݿ�ǰת��
-     * @param strVal Ҫת�����ַ�
-     * @return �ӡ�ISO8859_1������GBK���õ����ַ�
+     * 在将数据存入数据库前转换
+     * @param strVal 要转换的字符串
+     * @return 从“ISO8859_1”到“GBK”得到的字符串
      * @since  1.0
      */
     public static String toChinese(String strVal) {
@@ -180,7 +162,7 @@ public class CTool {
         }
     }
     /**
-     * ����ת�� ��UTF-8��GBK
+     * 编码转换 从UTF-8到GBK
      * @param strVal
      * @return
      */
@@ -199,9 +181,9 @@ public class CTool {
     }
 
     /**
-     * ����ݴ���ݿ���ȡ����ת��   *
-     * @param strVal Ҫת�����ַ�
-     * @return �ӡ�GBK������ISO8859_1���õ����ַ�
+     * 将数据从数据库中取出后转换   *
+     * @param strVal 要转换的字符串
+     * @return 从“GBK”到“ISO8859_1”得到的字符串
      * @since  1.0
      */
     public static String toISO(String strVal) {
@@ -253,23 +235,20 @@ public class CTool {
        }
    }
 
-
-
     /**
-     *��ʾ���ı��鴦��(���ַ�ת��ISO)
+     *显示大文本块处理(将字符集转成ISO)
      *@deprecated
-     *@param str Ҫ����ת�����ַ�
-     *@return ת����html��������ʾ���ַ�
+     *@param str 要进行转换的字符串
+     *@return 转换成html可以正常显示的字符串
      */
     public static String toISOHtml(String str) {
         return toISO(htmlDecode(null2Blank((str))));
     }
-
     /**
-     *ʵ�ʴ��� return toChineseNoReplace(null2Blank(str));
-     *��ҪӦ������ţ����Ϣ����
-     *@param str Ҫ���д�����ַ�
-     *@return ת������ַ�
+     *实际处理 return toChineseNoReplace(null2Blank(str));
+     *主要应用于老牛的信息发布
+     *@param str 要进行处理的字符串
+     *@return 转换后的字符串
      *@see fs_com.utils.CTools#toChinese
      *@see fs_com.utils.CTools#null2Blank
      */
@@ -278,10 +257,10 @@ public class CTool {
     }
 
     /**
-     *��nullֵ��""ֵת����&nbsp;
-     *��ҪӦ����ҳ��������ʾ
-     *@param str Ҫ���д�����ַ�
-     *@return ת������ַ�
+     *把null值和""值转换成&nbsp;
+     *主要应用于页面表格格的显示
+     *@param str 要进行处理的字符串
+     *@return 转换后的字符串
      */
     public static String str4Table(String str) {
         if (str == null)
@@ -293,45 +272,39 @@ public class CTool {
     }
 
     /**
-     * String�ͱ���ת����int�ͱ���
-     * @param str Ҫ����ת�����ַ�
-     * @return intVal ���str������ת����int����ݣ�����-1��ʾ�쳣,���򷵻�ת�����ֵ
+     * String型变量转换成int型变量
+     * @param str 要进行转换的字符串
+     * @return intVal 如果str不可以转换成int型数据，返回-1表示异常,否则返回转换后的值
      * @since  1.0
      */
     public static int str2Int(String str) {
         int intVal;
-
         try {
             intVal = Integer.parseInt(str);
         } catch (Exception e) {
             intVal = 0;
         }
-
         return intVal;
     }
 
     public static double str2Double(String str) {
         double dVal = 0;
-
         try {
             dVal = Double.parseDouble(str);
         } catch (Exception e) {
             dVal = 0;
         }
-
         return dVal;
     }
 
 
     public static long str2Long(String str) {
         long longVal = 0;
-
         try {
             longVal = Long.parseLong(str);
         } catch (Exception e) {
             longVal = 0;
         }
-
         return longVal;
     }
 
@@ -348,49 +321,45 @@ public class CTool {
     }
 
     /**
-     *int�ͱ���ת����String�ͱ���
-     *@param intVal Ҫ����ת��������
-     *@return str ���intVal������ת����String����ݣ����ؿ�ֵ��ʾ�쳣,���򷵻�ת�����ֵ
+     *int型变量转换成String型变量
+     *@param intVal 要进行转换的整数
+     *@return str 如果intVal不可以转换成String型数据，返回空值表示异常,否则返回转换后的值
      */
     /**
-     *int�ͱ���ת����String�ͱ���
-     *@param intVal Ҫ����ת��������
-     *@return str ���intVal������ת����String����ݣ����ؿ�ֵ��ʾ�쳣,���򷵻�ת�����ֵ
+     *int型变量转换成String型变量
+     *@param intVal 要进行转换的整数
+     *@return str 如果intVal不可以转换成String型数据，返回空值表示异常,否则返回转换后的值
      */
     public static String int2Str(int intVal) {
         String str;
-
         try {
             str = String.valueOf(intVal);
         } catch (Exception e) {
             str = "";
         }
-
         return str;
     }
 
     /**
-     *long�ͱ���ת����String�ͱ���
-     *@param longVal Ҫ����ת��������
-     *@return str ���longVal������ת����String����ݣ����ؿ�ֵ��ʾ�쳣,���򷵻�ת�����ֵ
+     *long型变量转换成String型变量
+     *@param longVal 要进行转换的整数
+     *@return str 如果longVal不可以转换成String型数据，返回空值表示异常,否则返回转换后的值
      */
 
     public static String long2Str(long longVal) {
         String str;
-
         try {
             str = String.valueOf(longVal);
         } catch (Exception e) {
             str = "";
         }
-
         return str;
     }
 
     /**
-     *null ����
-     *@param str Ҫ����ת�����ַ�
-     *@return ���strΪnullֵ�����ؿմ�"",���򷵻�str
+     *null 处理
+     *@param str 要进行转换的字符串
+     *@return 如果str为null值，返回空串"",否则返回str
      */
     public static String null2Blank(String str) {
         if (str == null)
@@ -400,9 +369,9 @@ public class CTool {
     }
 
     /**
-     *null ����
-     *@param d Ҫ����ת�������ڶ���
-     *@return ���dΪnullֵ�����ؿմ�"",���򷵻�d.toString()
+     *null 处理
+     *@param d 要进行转换的日期对像
+     *@return 如果d为null值，返回空串"",否则返回d.toString()
      */
 
     public static String null2Blank(Date d) {
@@ -413,9 +382,9 @@ public class CTool {
     }
 
     /**
-     *null ����
-     *@param str Ҫ����ת�����ַ�
-     *@return ���strΪnullֵ�����ؿմ�����0,���򷵻���Ӧ������
+     *null 处理
+     *@param str 要进行转换的字符串
+     *@return 如果str为null值，返回空串整数0,否则返回相应的整数
      */
     public static int null2Zero(String str) {
         int intTmp;
@@ -426,7 +395,7 @@ public class CTool {
             return intTmp;
     }
     /**
-     * ��nullת��Ϊ�ַ�"0"
+     * 把null转换为字符串"0"
      * @param str
      * @return
      */
@@ -439,10 +408,10 @@ public class CTool {
     }
 
     /**
-     * sql��� ����
-     * @param sql Ҫ���д����sql���
-     * @param dbtype ��ݿ�����
-     * @return ������sql���
+     * sql语句 处理
+     * @param sql 要进行处理的sql语句
+     * @param dbtype 数据库类型
+     * @return 处理后的sql语句
      */
     public static String sql4DB(String sql, String dbtype) {
         if (!dbtype.equalsIgnoreCase("oracle")) {
@@ -452,9 +421,9 @@ public class CTool {
     }
 
     /**
-     * ���ַ����md5����
-     * @param s Ҫ���ܵ��ַ�
-     * @return md5���ܺ���ַ�
+     * 对字符串进行md5加密
+     * @param s 要加密的字符串
+     * @return md5加密后的字符串
      */
     public final static String MD5(String s) {
         char hexDigits[] = {
@@ -480,7 +449,7 @@ public class CTool {
         }
     }
     /**
-     * �ַ��GBK����ת��ΪUnicode����
+     * 字符串从GBK编码转换为Unicode编码
      * @param text
      * @return
      */
@@ -530,7 +499,6 @@ public class CTool {
             {
                 result = result + temChr;
             }
-
         }
         return result;
     }
@@ -541,7 +509,7 @@ public class CTool {
      * @return
      */
 
-    //����:--------------------------------------------------------------------------------
+    //代码:--------------------------------------------------------------------------------
     public static String gbEncoding(final String gbString) {
         char[] utfBytes = gbString.toCharArray();
         String unicodeBytes = "";
@@ -574,7 +542,7 @@ public class CTool {
             } else {
                 charStr = dataStr.substring(start + 2, end);
             }
-            char letter = (char) Integer.parseInt(charStr, 16); // 16����parse�����ַ�
+            char letter = (char) Integer.parseInt(charStr, 16); // 16进制parse整形字符串。
             buffer.append(new Character(letter).toString());
             start = end;
         }

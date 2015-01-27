@@ -1,6 +1,3 @@
-/**
- * 
- */
 package java_tool;
 
 import java.io.File;
@@ -8,21 +5,16 @@ import java.io.FileFilter;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-/**
- * @author advance
- *
- */
 public class MyFileFilter implements FileFilter {
-
     private Hashtable filters = null;
     private String description = null;
     private String fullDescription = null;
     private boolean useExtensionsInDescription = true;
-
+    
     public MyFileFilter() {
     	this.filters = new Hashtable();
     }
-
+    
     public MyFileFilter(String extension) {
     	this(extension,null);
     }

@@ -4,15 +4,11 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
 /**
- * <p>Title: ��������</p>
- * <p>Description: ��ȡ���������</p>
+ * <p>Title: 计数器类</p>
+ * <p>Description: 获取最大序列数</p>
  * <p>Copyright: Copyright (c) 2006</p>
- * <p>Company: </p>
- * @author advance.wu
- * @version 1.0
  * 
  * sql:
- * 
  * CREATE TABLE `tblserial` (
   `tablename` varchar(100) NOT NULL default '',
   `serialno` int(11) NOT NULL default '0',
@@ -28,10 +24,9 @@ public class Counter {
     return counter;
   }
   /**
-   * ��ȡ������к�
-   * @param strTable ����
-   * @param con ��ݿ�����
-   * @return
+   * 获取最大序列号
+   * @param strTable 表名
+   * @param con 数据库链接
    */
   public synchronized long nextSerial(String strTable,Connection con){
     String strSQL = null;

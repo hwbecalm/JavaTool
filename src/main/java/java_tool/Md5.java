@@ -4,15 +4,12 @@ package java_tool;
 // $Id: Md5.java,v 1.4 1999/12/06 13:13:58 ylafon Exp $
 // (c) COPYRIGHT MIT and INRIA, 1996.
 // Please first read the full copyright statement in file COPYRIGHT.html
-//
-// 
 //		Add model hmac_Md5 ( String text , String key ) ;
 //package md5java ;
 import java.io.* ;
 
 public class Md5 {
     private static final int BUFFER_SIZE = 1024 ;
-
     private static final int S11 = 7 ;
     private static final int S12 = 12 ;
     private static final int S13 = 17 ;
@@ -44,13 +41,12 @@ public class Md5 {
         (byte) 0, (byte) 0, (byte) 0, (byte) 0
     } ;
 
-
-    private InputStream in       = null ;
-    private boolean     stringp  = false ;
-    private int         state[]  = null ;
-    private long        count    = 0 ;
-    private byte        buffer[] = null ;
-    private byte        digest[] = null ;
+    private InputStream in = null;
+    private boolean stringp = false;
+    private int state[] = null;
+    private long count = 0;
+    private byte buffer[] = null ;
+    private byte digest[] = null ;
 
     public static String stringify (byte buf[]) {
         StringBuffer sb = new StringBuffer(2*buf.length) ;
@@ -128,7 +124,6 @@ public class Md5 {
         int c   = state[2] ;
         int d   = state[3] ;
         int x[] = new int[16] ;
-
         decode (x, block, offset, 64);
         /* Round 1 */
         a = FF (a, b, c, d, x[ 0], S11, 0xd76aa478); /* 1 */
@@ -164,7 +159,6 @@ public class Md5 {
         d = GG (d, a, b, c, x[ 2], S22, 0xfcefa3f8); /* 30 */
         c = GG (c, d, a, b, x[ 7], S23, 0x676f02d9); /* 31 */
         b = GG (b, c, d, a, x[12], S24, 0x8d2a4c8a); /* 32 */
-
         /* Round 3 */
         a = HH (a, b, c, d, x[ 5], S31, 0xfffa3942); /* 33 */
         d = HH (d, a, b, c, x[ 8], S32, 0x8771f681); /* 34 */
@@ -182,7 +176,6 @@ public class Md5 {
         d = HH (d, a, b, c, x[12], S32, 0xe6db99e5); /* 46 */
         c = HH (c, d, a, b, x[15], S33, 0x1fa27cf8); /* 47 */
         b = HH (b, c, d, a, x[ 2], S34, 0xc4ac5665); /* 48 */
-
         /* Round 4 */
         a = II (a, b, c, d, x[ 0], S41, 0xf4292244); /* 49 */
         d = II (d, a, b, c, x[ 7], S42, 0x432aff97); /* 50 */
@@ -200,7 +193,6 @@ public class Md5 {
         d = II (d, a, b, c, x[11], S42, 0xbd3af235); /* 62 */
         c = II (c, d, a, b, x[ 2], S43, 0x2ad7d2bb); /* 63 */
         b = II (b, c, d, a, x[ 9], S44, 0xeb86d391); /* 64 */
-
         state[0] += a;
         state[1] += b;
         state[2] += c;
@@ -304,13 +296,11 @@ public class Md5 {
         return stringify (digest) ;
     }
 
-
     /**
      * Construct a digestifier for the given string.
      * @param input The string to be digestified.
      * @param encoding the encoding name used (such as UTF8)
      */
-
     public Md5 (String input, String enc) {
          byte bytes [] = null;
         try {
@@ -333,7 +323,6 @@ public class Md5 {
      * Construct a digestifier for the given string.
      * @param input The string to be digestified.
      */
-
     public Md5 (String input) {
         this(input, "UTF8");
     }
@@ -342,7 +331,6 @@ public class Md5 {
      * Construct a digestifier for the given input stream.
      * @param in The input stream to be digestified.
      */
-
     public Md5 (InputStream in) {
         this.stringp = false ;
         this.in      = in ;
@@ -355,51 +343,42 @@ public class Md5 {
         state[3] = 0x10325476;
     }
 
-        public void hmac_Md5 ( String text , String key )
-        throws IOException {
-                //byte disgest[] = new byte[16] ;
-                //byte output[] = new byte[32] ;
-                //output[33] = ( byte ) '\0' ;
-                byte k_ipad[] = new byte[64] ;
-                byte k_opad[] = new byte[64] ;
-                //byte tk[] = new byte[16] ;
-                byte key1 [] ;
-                int i ;
-                int text_len = text.getBytes().length ;
-                int key_len = key.getBytes().length ;
-                key1 = key.getBytes() ;
+    public void hmac_Md5 ( String text , String key )throws IOException {
+    	//byte disgest[] = new byte[16] ;
+    	//byte output[] = new byte[32] ;
+    	//output[33] = ( byte ) '\0' ;
+    	byte k_ipad[] = new byte[64] ;
+    	byte k_opad[] = new byte[64] ;
+    	//byte tk[] = new byte[16] ;
+    	byte key1 [] ;
+    	int i ;
+    	int text_len = text.getBytes().length ;
+    	int key_len = key.getBytes().length ;
+    	key1 = key.getBytes() ;
+    	if ( key_len > 64 ) {
+    		key1 = new Md5( key ).getDigest() ;
+    		key_len = 16 ;
+    	}
+    	for ( i = 0 ; i < 64 ; i++ )
+    		k_ipad[i] = ( byte ) 0 ;
+    	for ( i = 0 ; i < 64 ; i++ )
+    		k_opad[i] = ( byte ) 0 ;
+    	for ( i = 0 ; i < key_len ; i++ ) {
+    		k_ipad[i] = ( byte ) key1[i] ;
+    		k_opad[i] = ( byte ) key1[i] ;
+    	}
+    	for ( i = 0 ; i < 64 ; i++ ) {
+    		k_ipad[i] ^= 0x36 ;
+    		k_opad[i] ^= 0x5c ;
+    	}
 
-                if ( key_len > 64 ) {
-                        key1 = new Md5( key ).getDigest() ;
-                        key_len = 16 ;
-                }
-
-                for ( i = 0 ; i < 64 ; i++ )
-                        k_ipad[i] = ( byte ) 0 ;
-                for ( i = 0 ; i < 64 ; i++ )
-                        k_opad[i] = ( byte ) 0 ;
-
-                for ( i = 0 ; i < key_len ; i++ ) {
-                        k_ipad[i] = ( byte ) key1[i] ;
-                        k_opad[i] = ( byte ) key1[i] ;
-                }
-
-                for ( i = 0 ; i < 64 ; i++ ) {
-                        k_ipad[i] ^= 0x36 ;
-                        k_opad[i] ^= 0x5c ;
-                }
-
-                Md5 md5 = new Md5( "" ) ;
-                md5.update( k_ipad , 64 ) ;
-                md5.update( text.getBytes() , text_len ) ;
-                digest = md5.getDigest() ;
-
-                Md5 md51 = new Md5( "" ) ;
-                md51.update( k_opad , 64 ) ;
-                md51.update( digest , 16 ) ;
-                digest = md51.getDigest() ;
-        }
-
-
-
+    	Md5 md5 = new Md5( "" ) ;
+    	md5.update( k_ipad , 64 ) ;
+    	md5.update( text.getBytes() , text_len ) ;
+    	digest = md5.getDigest() ;
+    	Md5 md51 = new Md5( "" ) ;
+    	md51.update( k_opad , 64 ) ;
+    	md51.update( digest , 16 ) ;
+    	digest = md51.getDigest() ;
+    }
 }

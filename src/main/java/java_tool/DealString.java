@@ -1,33 +1,27 @@
-/**
- * 
- */
+/**	字符串处理 编码转换，空格处理，替换处理等等	*/
 package java_tool;
 
 import java.text.NumberFormat;
-import java.util.Date;
+//import java.util.Date;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
-/**
- * @author advance
- *
- */
 public class DealString {
 	
-	public DealString() {
-	}
+	public DealString() {}
 
-	//�ж��ַ��Ƿ�Ϊ�գ���ɾ����β�ո�
+	//判断字符串是否为空，(并删除首尾空格~~没实现)
 	public static String convertNullCode(String tempSql){
 		if (tempSql==null) tempSql="";
 		return tempSql;
 	}
+	
 	/**
-	 * �ַ��滻����
-	 * @param originString ԭ�ַ�
-	 * @param oldString ���滻�ַ�
-	 * @param newString �滻�ַ�
-	 * @return �滻��������ַ�
+	 * 字符串替换操作
+	 * @param originString 原字符串
+	 * @param oldString 被替换字符串
+	 * @param newString 替换字符串
+	 * @return 替换操作后的字符串
 	 */
 	public static String replace(String originString,String oldString,String newString){
 		String getstr = originString;
@@ -36,15 +30,14 @@ public class DealString {
 		}
 		return getstr;
 	}
+	
 	/**
-	 * ����ת����GBKת��ΪISO-8859-1
-	 * @param tempSql Ҫת�����ַ�
+	 * 代码转换，GBK转换为ISO-8859-1
+	 * @param tempSql 要转换的字符串
 	 * @return
 	 */
 	public static String ISOCode(String tempSql){
-	
 		String returnString = convertNullCode(tempSql);
-		
 		try{
 			byte[] ascii = returnString.getBytes("GBK");
 			returnString = new String(ascii,"ISO-8859-1");
@@ -55,8 +48,8 @@ public class DealString {
 	}
 
 	/**
-	 * ����ת����ISO-8859-1ת��ΪGBK
-	 * @param tempSql Ҫת�����ַ�
+	 * 代码转换，ISO-8859-1转换为GBK
+	 * @param tempSql 要转换的字符串
 	 * @return
 	 */
 	public static String GBKCode(String tempSql){
@@ -69,11 +62,12 @@ public class DealString {
 	    }
 	    return returnString;
 	}
+	
 	/**
-	 * ����ת�� ��srcCodeת��ΪdestCode
-	 * @param srcCode ԭ����
-	 * @param destCode Ŀ�����
-	 * @param strTmp Ҫת�����ַ�
+	 * 代码转换 从srcCode转换为destCode
+	 * @param srcCode 原编码
+	 * @param destCode 目标编码
+	 * @param strTmp 要转换的字符串
 	 * @return
 	 */
 	public static String convertCode(String srcCode,String destCode,String strTmp){
@@ -86,9 +80,10 @@ public class DealString {
 	    }
 	    return returnString;
 	}
+	
 	/**
-	 * ����ת����GBKת��Ϊbig5
-	 * @param tempSql Ҫת�����ַ�
+	 * 代码转换，GBK转换为big5
+	 * @param tempSql 要转换的字符串
 	 * @return
 	 */
 	public static String GBK2BIG5Code(String tempSql){
@@ -101,15 +96,13 @@ public class DealString {
 	    }
 	    return returnString;
 	}
-	//�滻�Ƿ��ַ�
+	
+	//替换非法字符
 	public static String convertHtml(String input){
 		StringBuffer returnString = new StringBuffer(input.length());
-
 	    char ch = ' ';
 	    for (int i = 0;i<input.length();i++){
-
 	    	ch = input.charAt( i);
-
 	    	if (ch == '<'){
 	    		returnString = returnString.append("&lt");
 	    	}else if (ch == '>'){
@@ -128,11 +121,10 @@ public class DealString {
 	/*
 	 *
 	 */
-	private String delSQlString(String sql){
+	private static String delSQlString(String sql){
 	    String delSql = "in(";
 	    StringTokenizer Tokenizer = new StringTokenizer(sql,"|");
-
-	    // ��Ǳ�����ڷָ�����������
+	    // 标记本身等于分隔符的特殊情况
 	    delSql += Tokenizer.nextToken().toString();
 	    while (Tokenizer.hasMoreTokens()) {
 	    	delSql += Tokenizer.nextToken() + ",";
@@ -176,7 +168,6 @@ public class DealString {
 		StringBuffer out = new StringBuffer((int)(len*1.3));
 		for (; i < len; i++) {
 			ch = input[i];
-
 			if (ch > '>') {
 				continue;
 			} else if (ch == '<') {
@@ -202,28 +193,25 @@ public class DealString {
 		return out.toString();
 	}
 
-	public static String filterString(String allstr)
-	{
+	public static String filterString(String allstr){
 		StringBuffer returnString = new StringBuffer(allstr.length());
 		char ch = ' ';
-		for (int i = 0; i < allstr.length(); i++)
-		{
+		for (int i = 0; i < allstr.length(); i++){
 			ch = allstr.charAt(i);
 			String lsTemp = "'";
 			char lcTemp = lsTemp.charAt(0);
-			if (ch == lcTemp)
-			{
+			if (ch == lcTemp){
 				returnString.append("''");
 			}
-			else
-			{
+			else{
 				returnString.append(ch);
 			}
 		}
 		return returnString.toString();
 	}
+	
 	/**
-	 * ���ֵĽ����ʽ
+	 * 数字的金额表达式
 	 * @param num
 	 * @return
 	 */

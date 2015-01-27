@@ -3,16 +3,12 @@
  */
 package java_tool;
 
-import java.io.File;
-import java.net.URL;
+//import java.io.File;
+//import java.net.URL;
+import java.util.List;
 
-import org.apache.commons.configuration.Configuration;
-import org.apache.commons.configuration.ConfigurationFactory;
+import org.apache.commons.configuration.*;
 
-/**
- * @author advance
- * 
- */
 public class ConfigHelper {
 	public ConfigHelper(){
 	}
@@ -24,26 +20,21 @@ public class ConfigHelper {
 	public static Configuration getConfig(String strfile){
 		Configuration config = null;
 		try {
-			ConfigurationFactory factory = new ConfigurationFactory(strfile);
-//			URL configURL = new File(strfile).toURL();
-//			factory.setConfigurationFileName(configURL.toString());
-			config = factory.getConfiguration();
+			config = new XMLConfiguration(strfile);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return config;
 	}
-	/**
-	 * @param args
-	 */
+
 	public static void main(String[] args) {
-		//ConfigHelper ch = new ConfigHelper();
-		//ch.test();
 		try{
 			Configuration config = getConfig("config.xml");
-			String backColor = config.getString("colors.background");
-			System.out.println("color: " + backColor);
-			config = null;
+			
+			List startCriteria = config.getList("start-criteria.criteria");     
+			int horsepower = config.getInt("horsepower");   
+			System.out.println( "Start Criteria: " + startCriteria );   
+			System.out.println(horsepower);   
 		}catch(Exception e){
 			e.printStackTrace();
 		}

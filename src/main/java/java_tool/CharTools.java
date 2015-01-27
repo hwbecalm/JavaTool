@@ -2,7 +2,7 @@ package java_tool;
 import java.io.UnsupportedEncodingException;
 
 /**
-* <p>Title:�ַ���빤���� </p>
+* <p>Title:字符编码工具类 </p>
 * <p>Description:  </p>
 * <p>Copyright:  Copyright (c) 2007</p>
 * <p>Company:  </p>
@@ -12,7 +12,7 @@ import java.io.UnsupportedEncodingException;
 public class CharTools {
 
   /**
-   * ת������ ISO-8859-1��GB2312
+   * 转换编码 ISO-8859-1到GB2312
    * @param text
    * @return
    */
@@ -28,7 +28,7 @@ public class CharTools {
   }
 
   /**
-   * ת������ GB2312��ISO-8859-1
+   * 转换编码 GB2312到ISO-8859-1
    * @param text
    * @return
    */
@@ -42,8 +42,9 @@ public class CharTools {
     }
     return result;
   }
+  
   /**
-   * Utf8URL����
+   * Utf8URL编码
    * @param s
    * @return
    */
@@ -51,32 +52,27 @@ public class CharTools {
     StringBuffer result = new StringBuffer();
 
     for (int i = 0; i < text.length(); i++) {
-
       char c = text.charAt(i);
       if (c >= 0 && c <= 255) {
         result.append(c);
       }else {
-
         byte[] b = new byte[0];
         try {
           b = Character.toString(c).getBytes("UTF-8");
-        }catch (Exception ex) {
-        }
-
+        }catch (Exception ex) { }
+        
         for (int j = 0; j < b.length; j++) {
           int k = b[j];
           if (k < 0) k += 256;
           result.append("%" + Integer.toHexString(k).toUpperCase());
         }
-
       }
     }
-
     return result.toString();
   }
 
   /**
-   * Utf8URL����
+   * Utf8URL解码
    * @param text
    * @return
    */
@@ -88,30 +84,25 @@ public class CharTools {
       text = text.toLowerCase();
       p = text.indexOf("%e");
       if (p == -1) return text;
-
-      while (p != -1) {
-        result += text.substring(0, p);
-        text = text.substring(p, text.length());
-        if (text == "" || text.length() < 9) return result;
-
-        result += CodeToWord(text.substring(0, 9));
-        text = text.substring(9, text.length());
-        p = text.indexOf("%e");
-      }
-
-    }
-
+      	while (p != -1) {
+      		result += text.substring(0, p);
+      		text = text.substring(p, text.length());
+      		if (text == "" || text.length() < 9)	return result;
+      		result += CodeToWord(text.substring(0, 9));
+      		text = text.substring(9, text.length());
+      		p = text.indexOf("%e");
+      	}
+	}
     return result + text;
   }
 
   /**
-   * utf8URL����ת�ַ�
+   * utf8URL编码转字符
    * @param text
    * @return
    */
   private static final String CodeToWord(String text) {
     String result;
-
     if (Utf8codeCheck(text)) {
       byte[] code = new byte[3];
       code[0] = (byte) (Integer.parseInt(text.substring(1, 3), 16) - 256);
@@ -126,12 +117,11 @@ public class CharTools {
     else {
       result = text;
     }
-
     return result;
   }
 
   /**
-   * �����Ƿ���Ч
+   * 编码是否有效
    * @param text
    * @return
    */
@@ -148,7 +138,7 @@ public class CharTools {
   }
 
   /**
-   * �ж��Ƿ�Utf8Url����
+   * 判断是否Utf8Url编码
    * @param text
    * @return
    */
@@ -162,15 +152,12 @@ public class CharTools {
   }
 
   /**
-   * ����
+   * 测试
    * @param args
    */
   public static void main(String[] args) {
-
     //CharTools charTools = new CharTools();
-
     String url;
-
     url = "http://www.google.com/search?hl=zh-CN&newwindow=1&q=%E4%B8%AD%E5%9B%BD%E5%A4%A7%E7%99%BE%E7%A7%91%E5%9C%A8%E7%BA%BF%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2&btnG=%E6%90%9C%E7%B4%A2&lr=";
     if(CharTools.isUtf8Url(url)){
       System.out.println(CharTools.Utf8URLdecode(url));
@@ -184,7 +171,5 @@ public class CharTools {
     }else{
       //System.out.println(URLDecoder.decode(url));
     }
-
   }
-
 }

@@ -1,7 +1,9 @@
+/**	小小的加密算法，玩玩	*/
 package java_tool;
 
 public class Escape {
-	private final static String[] hex = { "00", "01", "02", "03", "04", "05",
+	private final static String[] hex = { 
+			"00", "01", "02", "03", "04", "05",
 			"06", "07", "08", "09", "0A", "0B", "0C", "0D", "0E", "0F", "10",
 			"11", "12", "13", "14", "15", "16", "17", "18", "19", "1A", "1B",
 			"1C", "1D", "1E", "1F", "20", "21", "22", "23", "24", "25", "26",
@@ -26,7 +28,8 @@ public class Escape {
 			"ED", "EE", "EF", "F0", "F1", "F2", "F3", "F4", "F5", "F6", "F7",
 			"F8", "F9", "FA", "FB", "FC", "FD", "FE", "FF" };
 
-	private final static byte[] val = { 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
+	private final static byte[] val = { 
+			0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
 			0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
 			0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
 			0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
@@ -51,13 +54,7 @@ public class Escape {
 			0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
 			0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F };
 
-	/** */
-	/**   
-	 * ���� 
-	 *    
-	 * @param s   
-	 * @return   
-	 */
+	/** 编码 	*/
 	public static String escape(String s) {
 		StringBuffer sbuf = new StringBuffer();
 		int len = s.length();
@@ -86,13 +83,7 @@ public class Escape {
 		return sbuf.toString();
 	}
 
-	/** */
-	/**   
-	 * ���� ˵������������֤ ���۲���s�Ƿ񾭹�escape()���룬���ܵõ���ȷ�ġ����롱��� 
-	 *    
-	 * @param s   
-	 * @return   
-	 */
+	/**   解码 说明：本方法保证 不论参数s是否经过escape()编码，均能得到正确的“解码”结果 */
 	public static String unescape(String s) {
 		StringBuffer sbuf = new StringBuffer();
 		int i = 0;
@@ -132,7 +123,7 @@ public class Escape {
 	}
 
 	public static void main(String[] args) {
-		String stest = "һ��Ц������֮��1234 abcd[]()<+>,.~\"";
+		String stest = "一声笑傲江湖之曲1234 abcd[]()<+>,.~\"";
 		System.out.println(stest);
 		System.out.println(escape(stest));
 		System.out.println(unescape(escape(stest)));

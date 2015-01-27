@@ -1,12 +1,5 @@
-/**
- * 
- */
 package java_tool;
 
-/**
- * @author advance
- *
- */
 /*
  * Convenience methods for executing non-Java processes.
  * Copyright (C) 2005 Stephen Ostermiller
@@ -26,23 +19,16 @@ package java_tool;
  */
 
 import java.io.*;
-
-/**
- * Convenience methods for executing non-Java processes.
- * More information about this class is available from <a target="_top" href=
- * "http://ostermiller.org/utils/ExecHelper.html">ostermiller.org</a>.
- *
- * @author Stephen Ostermiller http://ostermiller.org/contact.pl?regarding=Java+Utilities
- * @since ostermillerutils 1.06.00
- */
+	/**
+	 * Convenience methods for executing non-Java processes.
+	 * More information about this class is available from <a target="_top" href=
+	 * "http://ostermiller.org/utils/ExecHelper.html">ostermiller.org</a>.
+	 */
 public final class ExecHelper {
-
 	/**
 	 * Executes the specified command and arguments in a separate process, and waits for the
 	 * process to finish.
-	 * <p>
 	 * Output from the process is expected to be text in the system's default character set.
-	 * <p>
 	 * No input is passed to the process on STDIN.
 	 *
 	 * @param cmdarray array containing the command to call and its arguments.
@@ -61,9 +47,7 @@ public final class ExecHelper {
 	/**
 	 * Executes the specified command and arguments in a separate process, and waits for the
 	 * process to finish.
-	 * <p>
 	 * Output from the process is expected to be text in the system's default character set.
-	 * <p>
 	 * No input is passed to the process on STDIN.
 	 *
 	 * @param cmdarray array containing the command to call and its arguments.
@@ -74,7 +58,6 @@ public final class ExecHelper {
 	 * @throws NullPointerException - if cmdarray is null
 	 * @throws IndexOutOfBoundsException - if cmdarray is an empty array (has length 0).
 	 *
-	 * @since ostermillerutils 1.06.00
 	 */
 	public static ExecHelper exec(String[] cmdarray, String[] envp) throws IOException {
 		return new ExecHelper(Runtime.getRuntime().exec(cmdarray, envp), null);
@@ -83,9 +66,7 @@ public final class ExecHelper {
 	/**
 	 * Executes the specified command and arguments in a separate process, and waits for the
 	 * process to finish.
-	 * <p>
 	 * Output from the process is expected to be text in the system's default character set.
-	 * <p>
 	 * No input is passed to the process on STDIN.
 	 *
 	 * @param cmdarray array containing the command to call and its arguments.
@@ -97,7 +78,6 @@ public final class ExecHelper {
 	 * @throws NullPointerException - if cmdarray is null
 	 * @throws IndexOutOfBoundsException - if cmdarray is an empty array (has length 0).
 	 *
-	 * @since ostermillerutils 1.06.00
 	 */
 	public static ExecHelper exec(String[] cmdarray, String[] envp, File dir) throws IOException {
 		return new ExecHelper(Runtime.getRuntime().exec(cmdarray, envp), null);
@@ -106,7 +86,6 @@ public final class ExecHelper {
 	/**
 	 * Executes the specified command and arguments in a separate process, and waits for the
 	 * process to finish.
-	 * <p>
 	 * No input is passed to the process on STDIN.
 	 *
 	 * @param cmdarray array containing the command to call and its arguments.
@@ -116,8 +95,6 @@ public final class ExecHelper {
 	 * @throws IOException - if an I/O error occurs
 	 * @throws NullPointerException - if cmdarray is null
 	 * @throws IndexOutOfBoundsException - if cmdarray is an empty array (has length 0).
-	 *
-	 * @since ostermillerutils 1.06.00
 	 */
 	public static ExecHelper exec(String[] cmdarray, String charset) throws IOException {
 		return new ExecHelper(Runtime.getRuntime().exec(cmdarray), charset);
@@ -126,7 +103,6 @@ public final class ExecHelper {
 	/**
 	 * Executes the specified command and arguments in a separate process, and waits for the
 	 * process to finish.
-	 * <p>
 	 * No input is passed to the process on STDIN.
 	 *
 	 * @param cmdarray array containing the command to call and its arguments.
@@ -137,8 +113,6 @@ public final class ExecHelper {
 	 * @throws IOException - if an I/O error occurs
 	 * @throws NullPointerException - if cmdarray is null
 	 * @throws IndexOutOfBoundsException - if cmdarray is an empty array (has length 0).
-	 *
-	 * @since ostermillerutils 1.06.00
 	 */
 	public static ExecHelper exec(String[] cmdarray, String[] envp, String charset) throws IOException {
 		return new ExecHelper(Runtime.getRuntime().exec(cmdarray, envp), charset);
@@ -147,7 +121,6 @@ public final class ExecHelper {
 	/**
 	 * Executes the specified command and arguments in a separate process, and waits for the
 	 * process to finish.
-	 * <p>
 	 * No input is passed to the process on STDIN.
 	 *
 	 * @param cmdarray array containing the command to call and its arguments.
@@ -159,8 +132,6 @@ public final class ExecHelper {
 	 * @throws IOException - if an I/O error occurs
 	 * @throws NullPointerException - if cmdarray is null
 	 * @throws IndexOutOfBoundsException - if cmdarray is an empty array (has length 0).
-	 *
-	 * @since ostermillerutils 1.06.00
 	 */
 	public static ExecHelper exec(String[] cmdarray, String[] envp, File dir, String charset) throws IOException {
 		return new ExecHelper(Runtime.getRuntime().exec(cmdarray, envp), charset);
@@ -169,12 +140,9 @@ public final class ExecHelper {
 	/**
 	 * Executes the specified command using a shell.  On windows uses cmd.exe or command.exe.
 	 * On other platforms it uses /bin/sh.
-	 * <p>
 	 * A shell should be used to execute commands when features such as file redirection, pipes,
 	 * argument parsing are desired.
-	 * <p>
 	 * Output from the process is expected to be text in the system's default character set.
-	 * <p>
 	 * No input is passed to the process on STDIN.
 	 *
 	 * @param command String containing a command to be parsed by the shell and executed.
@@ -182,8 +150,6 @@ public final class ExecHelper {
 	 * @throws SecurityException if a security manager exists and its checkExec method doesn't allow creation of a subprocess.
 	 * @throws IOException - if an I/O error occurs
 	 * @throws NullPointerException - if command is null
-	 *
-	 * @since ostermillerutils 1.06.00
 	 */
 	public static ExecHelper execUsingShell(String command) throws IOException {
 		return execUsingShell(command, null);
@@ -192,10 +158,8 @@ public final class ExecHelper {
 	/**
 	 * Executes the specified command using a shell.  On windows uses cmd.exe or command.exe.
 	 * On other platforms it uses /bin/sh.
-	 * <p>
 	 * A shell should be used to execute commands when features such as file redirection, pipes,
 	 * argument parsing are desired.
-	 * <p>
 	 * No input is passed to the process on STDIN.
 	 *
 	 * @param command String containing a command to be parsed by the shell and executed.
@@ -204,8 +168,6 @@ public final class ExecHelper {
 	 * @throws SecurityException if a security manager exists and its checkExec method doesn't allow creation of a subprocess.
 	 * @throws IOException - if an I/O error occurs
 	 * @throws NullPointerException - if command is null
-	 *
-	 * @since ostermillerutils 1.06.00
 	 */
 	public static ExecHelper execUsingShell(String command, String charset) throws IOException {
 		if (command == null) throw new NullPointerException();
@@ -223,25 +185,18 @@ public final class ExecHelper {
 
 	/**
 	 * Take a process, record its standard error and standard out streams, wait for it to finish
-	 *
 	 * @param process process to watch
 	 * @throws SecurityException if a security manager exists and its checkExec method doesn't allow creation of a subprocess.
 	 * @throws IOException - if an I/O error occurs
 	 * @throws NullPointerException - if cmdarray is null
 	 * @throws IndexOutOfBoundsException - if cmdarray is an empty array (has length 0).
-	 *
-	 * @since ostermillerutils 1.06.00
 	 */
 	private ExecHelper(Process process, String charset) throws IOException {
 		StringBuffer output = new StringBuffer();
 		StringBuffer error = new StringBuffer();
-
 		Reader stdout;
 		Reader stderr;
-
 		if (charset == null){
-			// This is one time that the system charset is appropriate,
-			// don't specify a character set.
 			stdout = new InputStreamReader(process.getInputStream());
 			stderr = new InputStreamReader(process.getErrorStream());
 		} else {
@@ -249,7 +204,6 @@ public final class ExecHelper {
 			stderr = new InputStreamReader(process.getErrorStream(), charset);
 		}
 		char[] buffer = new char[1024];
-
 		boolean done = false;
 		boolean stdoutclosed = false;
 		boolean stderrclosed = false;
@@ -303,16 +257,13 @@ public final class ExecHelper {
 
 	/**
 	 * The output of the job that ran.
-	 *
 	 * @since ostermillerutils 1.06.00
 	 */
 	private String output;
 
 	/**
 	 * Get the output of the job that ran.
-	 *
 	 * @return Everything the executed process wrote to its standard output as a String.
-	 *
 	 * @since ostermillerutils 1.06.00
 	 */
 	public String getOutput(){
@@ -321,16 +272,13 @@ public final class ExecHelper {
 
 	/**
 	 * The error output of the job that ran.
-	 *
 	 * @since ostermillerutils 1.06.00
 	 */
 	private String error;
 
 	/**
 	 * Get the error output of the job that ran.
-	 *
 	 * @return Everything the executed process wrote to its standard error as a String.
-	 *
 	 * @since ostermillerutils 1.06.00
 	 */
 	public String getError(){
@@ -339,16 +287,13 @@ public final class ExecHelper {
 
 	/**
 	 * The status of the job that ran.
-	 *
 	 * @since ostermillerutils 1.06.00
 	 */
 	private int status;
 
 	/**
 	 * Get the status of the job that ran.
-	 *
 	 * @return exit status of the executed process, by convention, the value 0 indicates normal termination.
-	 *
 	 * @since ostermillerutils 1.06.00
 	 */
 	public int getStatus(){

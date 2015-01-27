@@ -1,5 +1,4 @@
 package java_tool;
-
 /*
  * Base64 decoding exception.
  * Copyright (C) 2002 Stephen Ostermiller
@@ -19,7 +18,6 @@ package java_tool;
  */
 
 import java.io.*;
-
 /**
  * Exception that is thrown when an unexpected character is encountered
  * during Base64 decoding.  One could catch this exception and use
@@ -31,14 +29,13 @@ import java.io.*;
  * @since ostermillerutils 1.00.00
  */
 public class Base64DecodingException extends IOException {
+	private static final long serialVersionUID = 1L;
 	private char c;
 
 	/**
 	 * Construct an new exception.
-	 *
 	 * @param message message later to be returned by a getMessage() call.
 	 * @param c character that caused this error.
-	 *
 	 * @since ostermillerutils 1.00.00
 	 */
 	public Base64DecodingException(String message, char c){
@@ -48,9 +45,7 @@ public class Base64DecodingException extends IOException {
 
 	/**
 	 * Get the character that caused this error.
-	 *
 	 * @return the character that caused this error.
-	 *
 	 * @since ostermillerutils 1.00.00
 	 */
 	public char getChar(){

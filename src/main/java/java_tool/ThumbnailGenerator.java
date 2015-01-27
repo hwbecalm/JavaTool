@@ -1,12 +1,6 @@
-/**
- * 生成缩略图类
- */
+/** 生成缩略图类 */
 package java_tool;
 
-/**
- * @author advance
- *
- */
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -16,33 +10,26 @@ import java.io.File;
 
 public class ThumbnailGenerator {
 	
-	public void transform(String originalFile, String thumbnailFile, int thumbWidth, int thumbHeight, int quality) throws Exception 
-	{
+	public void transform(String originalFile, String thumbnailFile, int thumbWidth, int thumbHeight, int quality) throws Exception {
 		Image image = javax.imageio.ImageIO.read(new File(originalFile));
 	    
 	    double thumbRatio = (double)thumbWidth / (double)thumbHeight;
 	    int imageWidth    = image.getWidth(null);
 	    int imageHeight   = image.getHeight(null);
 	    double imageRatio = (double)imageWidth / (double)imageHeight;
-	    if (thumbRatio < imageRatio) 
-	    {
+	    if (thumbRatio < imageRatio) {
 	    	thumbHeight = (int)(thumbWidth / imageRatio);
-	    } 
-	    else 
-	    {
+	    } else {
 	      	thumbWidth = (int)(thumbHeight * imageRatio);
 	    }
 	    
-		if(imageWidth < thumbWidth && imageHeight < thumbHeight)
-		{
+		if(imageWidth < thumbWidth && imageHeight < thumbHeight){
 			thumbWidth = imageWidth;
 			thumbHeight = imageHeight;
-		}
-		else if(imageWidth < thumbWidth)
-			thumbWidth = imageWidth;
-		else if(imageHeight < thumbHeight)
-			thumbHeight = imageHeight;
-
+		}else if(imageWidth < thumbWidth)
+				thumbWidth = imageWidth;
+			else if(imageHeight < thumbHeight)
+				thumbHeight = imageHeight;
 	    BufferedImage thumbImage = new BufferedImage(thumbWidth, thumbHeight, BufferedImage.TYPE_INT_RGB);
 	    Graphics2D graphics2D = thumbImage.createGraphics();
 	    graphics2D.setBackground(Color.WHITE);

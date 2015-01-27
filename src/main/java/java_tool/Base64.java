@@ -145,38 +145,28 @@ import java.util.Locale;
  * @since ostermillerutils 1.00.00
  */
 public class Base64 {
-
 	/**
 	 * Symbol that represents the end of an input stream
-	 *
 	 * @since ostermillerutils 1.00.00
 	 */
 	private static final int END_OF_INPUT = -1;
-
 	/**
 	 * A character that is not a valid base 64 character.
-	 *
 	 * @since ostermillerutils 1.00.00
 	 */
 	private static final int NON_BASE_64 = -1;
-
 	/**
 	 * A character that is not a valid base 64 character.
-	 *
 	 * @since ostermillerutils 1.00.00
 	 */
 	private static final int NON_BASE_64_WHITESPACE = -2;
-
 	/**
 	 * A character that is not a valid base 64 character.
-	 *
 	 * @since ostermillerutils 1.00.00
 	 */
 	private static final int NON_BASE_64_PADDING = -3;
-
 	/**
 	 * This class need not be instantiated, all methods are static.
-	 *
 	 * @since ostermillerutils 1.00.00
 	 */
 	private Base64(){
@@ -185,7 +175,6 @@ public class Base64 {
 	/**
 	 * Table of the sixty-four characters that are used as
 	 * the Base64 alphabet: [A-Za-z0-9+/]
-	 *
 	 * @since ostermillerutils 1.00.00
 	 */
 	protected static final byte[] base64Chars = {
@@ -203,7 +192,6 @@ public class Base64 {
 	 * Reverse lookup table for the Base64 alphabet.
 	 * reversebase64Chars[byte] gives n for the nth Base64
 	 * character or negative if a character is not a Base64 character.
-	 *
 	 * @since ostermillerutils 1.00.00
 	 */
 	protected static final byte[] reverseBase64Chars = new byte[0x100];
@@ -227,14 +215,12 @@ public class Base64 {
 
 	/**
 	 * Version number of this program
-	 *
 	 * @since ostermillerutils 1.00.00
 	 */
 	public static final String version = "1.2";
 
 	/**
 	 * Locale specific strings displayed to the user.
-	 *
 	 * @since ostermillerutils 1.00.00
 	 */
 	protected static ResourceBundle labels = ResourceBundle.getBundle("com.Ostermiller.util.Base64",  Locale.getDefault());
@@ -250,9 +236,7 @@ public class Base64 {
 	/**
 	 * Converts the line ending on files, or standard input.
 	 * Run with --help argument for more information.
-	 *
 	 * @param args Command line arguments.
-	 *
 	 * @since ostermillerutils 1.00.00
 	 */
 	public static void main(String[] args){
